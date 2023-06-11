@@ -44,7 +44,7 @@ const UserValidators = {
         return Promise.resolve(true);
       });
   },
-  firstName: (location = body, field = "first_name") => {
+  first_name: (location = body, field = "first_name") => {
     return location(field)
       .notEmpty()
       .withMessage("Nama depan wajib diisi")
@@ -56,7 +56,7 @@ const UserValidators = {
         })
       );
   },
-  lastName: (location = body, field = "last_name") => {
+  last_name: (location = body, field = "last_name") => {
     return location(field)
       .notEmpty()
       .withMessage("Nama belakang wajib diisi.")

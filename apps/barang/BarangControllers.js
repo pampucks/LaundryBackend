@@ -1,6 +1,6 @@
 const { param } = require("express-validator");
 const BaseValidatorRun = require("../base/validators/BaseValidatorRun");
-// const UserServiceTokenAuthentication = require("../user/services/UserServiceTokenAuthentication");
+const UserServiceTokenAuthentication = require("../user/services/UserServiceTokenAuthentication");
 
 const BarangServiceEdit = require("./services/BarangServiceEdit");
 const BarangServiceGet = require("./services/BarangServiceGet");
@@ -14,7 +14,7 @@ const BarangControllers = require("express").Router();
 BarangControllers.post(
   "/",
   [
-    // UserServiceTokenAuthentication,
+    UserServiceTokenAuthentication,
     BarangValidators.kode_barang(),
     BarangValidators.nama_barang(),
     BaseValidatorRun(),
@@ -31,7 +31,7 @@ BarangControllers.post(
 BarangControllers.get(
   "/",
   [
-    // UserServiceTokenAuthentication,
+    UserServiceTokenAuthentication,
     BaseValidatorQueryPage(),
     BaseValidatorRun(),
   ],
@@ -47,7 +47,7 @@ BarangControllers.get(
 BarangControllers.get(
   "/:kode_barang",
   [
-    // UserServiceTokenAuthentication,
+    UserServiceTokenAuthentication,
     BarangValidators.kode_barang(param, false),
     BaseValidatorRun(),
   ],
@@ -63,7 +63,7 @@ BarangControllers.get(
 BarangControllers.put(
   "/:kode_barang",
   [
-    // UserServiceTokenAuthentication,
+    UserServiceTokenAuthentication,
     BarangValidators.kode_barang(param, false),
     BarangValidators.nama_barang(),
     BaseValidatorRun(),
@@ -80,7 +80,7 @@ BarangControllers.put(
 BarangControllers.delete(
   "/:kode_barang",
   [
-    // UserServiceTokenAuthentication,
+    UserServiceTokenAuthentication,
     BarangValidators.kode_barang(param, false),
     BaseValidatorRun(),
   ],

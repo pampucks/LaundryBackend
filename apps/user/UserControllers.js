@@ -23,14 +23,14 @@ router.post(
   [
     UserValidators.email(),
     UserValidators.password(),
-    UserValidators.firstName(),
-    UserValidators.lastName(),
+    UserValidators.first_name(),
+    UserValidators.last_name(),
     BaseValidatorRun(),
   ],
   async (req, res) => {
     const user = await UserServiceRegister(
-      req.body.firstName,
-      req.body.lastName,
+      req.body.first_name,
+      req.body.last_name,
       req.body.email,
       req.body.password
     );
