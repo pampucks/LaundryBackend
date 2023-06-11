@@ -4,7 +4,7 @@ const PembelianServiceGet = require("./services/PembelianServiceGet");
 const BarangServiceGet = require("../barang/services/BarangServiceGet");
 const BaseValidatorFields = require("../base/validators/BaseValidatorFields");
 const BaseValidatorHandleUndefined = require("../base/validators/BaseValidatorHandleUndefined");
-const PemasokValidators = require("../pemasok/PemasokValidators");
+const PelangganValidators = require("../pelanggan/PelangganValidators");
 const BarangValidators = require("../barang/BarangValidators");
 
 const PembelianValidators = {
@@ -32,8 +32,8 @@ const PembelianValidators = {
       .bail()
       .trim();
   },
-  kodePemasok: (location = body, field = "kodePemasok") => {
-    return PemasokValidators.kodePemasok(location, false, field);
+  kode_pelanggan: (location = body, field = "kode_pelanggan") => {
+    return PelangganValidators.kode_pelanggan(location, false, field);
   },
   dibayar: (location = body, field = "dibayar") => {
     return location(field)

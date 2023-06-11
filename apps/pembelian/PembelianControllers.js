@@ -7,7 +7,7 @@ const { query, param } = require("express-validator");
 const PembelianServiceList = require("./services/PembelianServiceList");
 const PembelianServiceGet = require("./services/PembelianServiceGet");
 const PembelianServiceGetItemBeli = require("./services/PembelianServiceGetItemBeli");
-const PemasokServiceGet = require("../pemasok/services/PemasokServiceGet");
+const PelangganServiceGet = require("../pelanggan/services/PelangganServiceGet");
 const PembelianServiceFakturExcel = require("./services/PembelianServiceFakturExcel");
 const PembelianServiceReportPeriod = require("./services/PembelianServiceReportPeriod");
 const PembelianServiceReportPeriodExcel = require("./services/PembelianServiceReportPeriodExcel");
@@ -21,7 +21,7 @@ PembelianControllers.post(
     PembelianValidators.faktur(),
     PembelianValidators.tanggal(),
     PembelianValidators.total(),
-    PembelianValidators.kodePemasok(),
+    // PembelianValidators.kode_pelanggan(),
     PembelianValidators.dibayar(),
     PembelianValidators.kembali(),
     PembelianValidators.items.self(),
@@ -36,7 +36,7 @@ PembelianControllers.post(
       req.body.total,
       req.body.dibayar,
       req.body.kembali,
-      req.body.kodePemasok,
+      // req.body.kode_pelanggan,
       req.body.items
     );
     res.status(201).json(pembelian);
@@ -97,9 +97,9 @@ PembelianControllers.post(
       false
     );
 
-    const pemasok = await PemasokServiceGet(
-      "kodePemasok",
-      pembelian.kodePemasok
+    const pelanggan = await PelangganServiceGet(
+      "kode_pelanggan",
+      pembelian.kode_pelanggan
     );
     const items = await PembelianServiceGetItemBeli(
       "faktur",
@@ -116,7 +116,7 @@ PembelianControllers.post(
       `${req.params.faktur}-${new Date().getTime()}.xlsx`
     );
 
-    const xlsx = await PembelianServiceFakturExcel(pembelian, pemasok, items);
+    const xlsx = await PembelianServiceFakturExcel(pembelian, pelanggan, items);
     await xlsx.write(res);
     return res.end();
   }

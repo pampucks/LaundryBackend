@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use("/user", require("./apps/user/UserControllers"));
 app.use("/barang", require("./apps/barang/BarangControllers"));
-app.use("/pemasok", require("./apps/pemasok/PemasokControllers"));
+app.use("/pelanggan", require("./apps/pelanggan/PelangganControllers"));
 app.use("/pembelian", require("./apps/pembelian/PembelianControllers"));
 
 module.exports = app;

@@ -1,15 +1,15 @@
 const { query } = require("express-validator");
 const BaseServicePaginator = require("../../base/services/BaseServicePaginator");
 const BaseServiceQueryBuilder = require("../../base/services/BaseServiceQueryBuilder");
-const { PEMASOK_CONFIG_MAIN_TABLE } = require("../config");
+const { PELANGGAN_CONFIG_MAIN_TABLE } = require("../config");
 
-const PemasokServiceList = async (terms, page) => {
-  const queryBuilder = BaseServiceQueryBuilder(PEMASOK_CONFIG_MAIN_TABLE);
+const PelangganServiceList = async (page, terms) => {
+  const queryBuilder = BaseServiceQueryBuilder(PELANGGAN_CONFIG_MAIN_TABLE);
 
   if (terms) {
     queryBuilder
-      .whereILike("kodePemasok", `%${terms}%`)
-      .orWhereILike("namaPemasok", `%${terms}%`);
+      .whereILike("kode_pelanggan", `%${terms}%`)
+      .orWhereILike("nama_pelanggan", `%${terms}%`);
   }
 
   return {
@@ -18,4 +18,4 @@ const PemasokServiceList = async (terms, page) => {
   };
 };
 
-module.exports = PemasokServiceList;
+module.exports = PelangganServiceList;

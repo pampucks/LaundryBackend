@@ -1,9 +1,9 @@
 const BaseServiceQueryBuilder = require("../../base/services/BaseServiceQueryBuilder");
-const { PEMASOK_CONFIG_MAIN_TABLE } = require("../config");
+const { PELANGGAN_CONFIG_MAIN_TABLE } = require("../config");
 
-const PemasokServiceGet = async (field, value, many = false) => {
+const PelangganServiceGet = async (field, value, many = false) => {
   const results = await BaseServiceQueryBuilder(
-    PEMASOK_CONFIG_MAIN_TABLE
+    PELANGGAN_CONFIG_MAIN_TABLE
   ).where({ [field]: value });
 
   if (many) return results;
@@ -11,4 +11,4 @@ const PemasokServiceGet = async (field, value, many = false) => {
   return results[0];
 };
 
-module.exports = PemasokServiceGet;
+module.exports = PelangganServiceGet;
