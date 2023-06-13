@@ -129,7 +129,7 @@ const TransaksiValidators = {
             BaseValidatorHandleUndefined(barang, "Kode Barang");
 
             const calculateSubtotal =
-              barang.berat * req[location].items[index].qty;
+              barang.hargaSatuan * req[location].items[index].qty;
             if (calculateSubtotal !== value) {
               return Promise.reject("Subtotal tidak valid.");
             }

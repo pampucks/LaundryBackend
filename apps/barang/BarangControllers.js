@@ -17,12 +17,16 @@ BarangControllers.post(
     UserServiceTokenAuthentication,
     BarangValidators.kode_barang(),
     BarangValidators.nama_barang(),
+    // BarangValidators.qty(),
+    BarangValidators.hargaSatuan(),
     BaseValidatorRun(),
   ],
   async (req, res) => {
     const barang = await BarangServiceCreate(
       req.body.kode_barang,
-      req.body.nama_barang
+      req.body.nama_barang,
+      // req.body.qty,
+      req.body.hargaSatuan
     );
     return res.status(201).json(barang);
   }
@@ -66,12 +70,16 @@ BarangControllers.put(
     UserServiceTokenAuthentication,
     BarangValidators.kode_barang(param, false),
     BarangValidators.nama_barang(),
+    // BarangValidators.qty(),
+    BarangValidators.hargaSatuan(),
     BaseValidatorRun(),
   ],
   async (req, res) => {
     const barang = await BarangServiceEdit(
       req.params.kode_barang,
-      req.body.nama_barang
+      req.body.nama_barang,
+      // req.body.qty,
+      req.body.hargaSatuan
     );
     return res.status(200).json(barang);
   }

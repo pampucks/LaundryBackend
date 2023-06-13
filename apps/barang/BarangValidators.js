@@ -29,6 +29,38 @@ const BarangValidators = {
       .isLength({ min: 5 })
       .withMessage("Nama barang minimal 5 karakter.");
   },
+  hargaSatuan: (location = body, field = "hargaSatuan") => {
+    return location(field)
+      .notEmpty()
+      .withMessage("Harga satuan wajib diisi.")
+      .bail()
+      .isInt()
+      .withMessage("Harga satuan harus angka.")
+      .bail()
+      .customSanitizer((value) => parseInt(value))
+      .custom((value) => {
+        if (value <= 0) {
+          throw new Error("Harga satuan harus lebih dari 0.");
+        }
+        return true;
+      });
+  },
+  qty: (location = body, field = "qty") => {
+    return location(field)
+      .notEmpty()
+      .withMessage("qty harus diisi.")
+      .bail()
+      .isInt()
+      .withMessage("qty harus angka.")
+      .bail()
+      .customSanitizer((value) => parseInt(value))
+      .custom((value) => {
+        if (value < 1) {
+          throw new Error("qty harus di atas 0.");
+        }
+        return true;
+      });
+  },
 };
 
 module.exports = BarangValidators;
