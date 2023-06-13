@@ -1,31 +1,31 @@
 const _ = require("lodash");
 const { body } = require("express-validator");
-const PembelianServiceGet = require("./services/PembelianServiceGet");
+const TransaksiServiceGet = require("./services/TransaksiServiceGet");
 const BarangServiceGet = require("../barang/services/BarangServiceGet");
 const BaseValidatorFields = require("../base/validators/BaseValidatorFields");
 const BaseValidatorHandleUndefined = require("../base/validators/BaseValidatorHandleUndefined");
 const PelangganValidators = require("../pelanggan/PelangganValidators");
 const BarangValidators = require("../barang/BarangValidators");
 
-const PembelianValidators = {
-  faktur: (location = body, forCreate = true, field = "faktur") => {
+const TransaksiValidators = {
+  no_faktur: (location = body, forCreate = true, field = "no_faktur") => {
     return location(field)
       .notEmpty()
-      .withMessage("Faktur wajib diisi.")
+      .withMessage("No.Faktur wajib diisi.")
       .bail()
       .trim()
       .custom(async (value) => {
-        const pembelian = await PembelianServiceGet("faktur", value);
-        if (forCreate && pembelian) {
-          return Promise.reject("Faktur pembelian sudah pernah dibuat.");
-        } else if (!forCreate && !pembelian) {
-          return Promise.reject("Faktur pembelian tidak ada.");
+        const transaksi = await TransaksiServiceGet("no_faktur", value);
+        if (forCreate && transaksi) {
+          return Promise.reject("No.Faktur transaksi sudah pernah dibuat.");
+        } else if (!forCreate && !transaksi) {
+          return Promise.reject("Faktur transaksi tidak ada.");
         }
 
         return Promise.resolve(true);
       });
   },
-  tanggal: (location = body, field = "tanggal") => {
+  tanggal_terima: (location = body, field = "tanggal_terima") => {
     return location(field)
       .notEmpty()
       .withMessage("Tanggal transaksi wajib")
@@ -75,7 +75,7 @@ const PembelianValidators = {
     self: (location = body, field = "items") => {
       return location(field)
         .notEmpty()
-        .withMessage("Item pembelian wajib.")
+        .withMessage("Item transaksi wajib.")
         .bail()
         .isArray({ min: 1 })
         .withMessage(
@@ -123,13 +123,13 @@ const PembelianValidators = {
             const index = _.toPath(path)[1];
             const barang = await BarangServiceGet(
               "kode_barang",
-              req[location].items[index].kode_arang
+              req[location].items[index].kode_barang
             );
 
             BaseValidatorHandleUndefined(barang, "Kode Barang");
 
             const calculateSubtotal =
-              barang.hargaBeli * req[location].items[index].jumlahBeli;
+              barang.berat * req[location].items[index].qty;
             if (calculateSubtotal !== value) {
               return Promise.reject("Subtotal tidak valid.");
             }
@@ -190,4 +190,4 @@ const PembelianValidators = {
   },
 };
 
-module.exports = PembelianValidators;
+module.exports = TransaksiValidators;

@@ -6,17 +6,11 @@ const {
 } = require("../../base/config");
 const BaseServiceExcelColumnResponsive = require("../../base/services/BaseServiceExcelColumnResponsive");
 
-const PembelianServiceReportPeriodExcel = async (items) => {
+const TransaksiServiceReportPeriodExcel = async (items) => {
   const wb = new xl.Workbook();
-  const ws = wb.addWorksheet(`report-pembelian`);
+  const ws = wb.addWorksheet(`report-transaksi`);
 
-  const keys = [
-    "KODE BARANG",
-    "NAMA BARANG",
-    "HARGA BELI",
-    "JUMLAH BELI",
-    "SUBTOTAL",
-  ];
+  const keys = ["KODE BARANG", "NAMA BARANG", "BERAT", "QTY", "SUBTOTAL"];
   const headers = [
     ws.getCell("A1"),
     ws.getCell("B1"),
@@ -56,4 +50,4 @@ const PembelianServiceReportPeriodExcel = async (items) => {
   return wb.xlsx;
 };
 
-module.exports = PembelianServiceReportPeriodExcel;
+module.exports = TransaksiServiceReportPeriodExcel;
