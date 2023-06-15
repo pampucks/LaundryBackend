@@ -21,12 +21,15 @@ TransaksiControllers.post(
     TransaksiValidators.no_faktur(),
     TransaksiValidators.tanggal_terima(),
     TransaksiValidators.total(),
-    // TransaksiValidators.kode_pelanggan(),
+    TransaksiValidators.kode_pelanggan(),
     TransaksiValidators.dibayar(),
     TransaksiValidators.kembali(),
     TransaksiValidators.items.self(),
     TransaksiValidators.items.inner.kode_barang(),
     TransaksiValidators.items.inner.nama_barang(),
+    TransaksiValidators.items.inner.hargaSatuan(),
+    TransaksiValidators.items.inner.qty(),
+    TransaksiValidators.items.inner.subtotal(),
     BaseValidatorRun(),
   ],
   async (req, res) => {
@@ -36,7 +39,7 @@ TransaksiControllers.post(
       req.body.total,
       req.body.dibayar,
       req.body.kembali,
-      // req.body.kode_pelanggan,
+      req.body.kode_pelanggan,
       req.body.items
     );
     res.status(201).json(transaksi);

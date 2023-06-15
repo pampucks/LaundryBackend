@@ -22,7 +22,7 @@ const TransaksiServiceCreate = async (
     kode_pelanggan,
   };
 
-  const daftarItemBarang = items.map((item) => {
+  const daftarItemTransaksi = items.map((item) => {
     return {
       no_faktur,
       kode_barang: item.kode_barang,
@@ -39,11 +39,11 @@ const TransaksiServiceCreate = async (
       .transacting(trx);
 
     await BaseServiceQueryBuilder(ITEM_BARANG_CONFIG_MAIN_TABLE)
-      .insert(daftarItemBarang)
+      .insert(daftarItemTransaksi)
       .transacting(trx);
   });
 
-  return { ...dataTransaksi, items: daftarItemBarang };
+  return { ...dataTransaksi, items: daftarItemTransaksi };
 };
 
 module.exports = TransaksiServiceCreate;
