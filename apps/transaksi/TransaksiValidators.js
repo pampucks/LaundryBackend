@@ -120,7 +120,7 @@ const TransaksiValidators = {
 
             if (barang.hargaSatuan !== value) {
               return Promise.reject(
-                "Harga beli barang tidak sama dengan harga beli aslinya."
+                "Harga satuan barang tidak sama dengan harga satuan aslinya."
               );
             }
 
