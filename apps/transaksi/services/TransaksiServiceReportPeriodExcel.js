@@ -10,7 +10,7 @@ const TransaksiServiceReportPeriodExcel = async (items) => {
   const wb = new xl.Workbook();
   const ws = wb.addWorksheet(`report-transaksi`);
 
-  const keys = ["KODE BARANG", "NAMA BARANG", "BERAT", "QTY", "SUBTOTAL"];
+  const keys = ["KODE BARANG", "NAMA BARANG", "HARGASATUAN", "QTY", "SUBTOTAL"];
   const headers = [
     ws.getCell("A1"),
     ws.getCell("B1"),

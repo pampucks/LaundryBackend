@@ -33,7 +33,7 @@ const TransaksiServiceFakturExcel = async (transaksi, pelanggan, items) => {
   ws.getCell("A2").font = BASE_CONFIG_EXCEL_FONT_HEADER;
 
   ws.getCell("B1").value = transaksi.no_faktur;
-  ws.getCell("B2").value = transaksi.tanggal.toISOString().split("T")[0];
+  ws.getCell("B2").value = transaksi.tanggal_terima.toISOString().split("T")[0];
   ws.getCell("B1").border = BASE_CONFIG_EXCEL_BORDER;
   ws.getCell("B2").border = BASE_CONFIG_EXCEL_BORDER;
 
@@ -52,7 +52,7 @@ const TransaksiServiceFakturExcel = async (transaksi, pelanggan, items) => {
   // Set detail item headers value
   ws.getCell("A5").value = "KODE BARANG";
   ws.getCell("B5").value = "NAMA BARANG";
-  ws.getCell("C5").value = "BERAT";
+  ws.getCell("C5").value = "HARGA SATUAN";
   ws.getCell("D5").value = "QTY";
   ws.getCell("E5").value = "SUBTOTAL";
 
@@ -81,7 +81,7 @@ const TransaksiServiceFakturExcel = async (transaksi, pelanggan, items) => {
   for (const item of items) {
     ws.getCell(`A${colNumber}`).value = item.kode_barang;
     ws.getCell(`B${colNumber}`).value = item.nama_barang;
-    ws.getCell(`C${colNumber}`).value = item.berat;
+    ws.getCell(`C${colNumber}`).value = item.hargaSatuan;
     ws.getCell(`D${colNumber}`).value = item.qty;
     ws.getCell(`E${colNumber}`).value = item.subtotal;
 

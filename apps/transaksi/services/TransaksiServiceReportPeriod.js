@@ -13,7 +13,7 @@ const TransaksiServiceReportPeriod = async (startDate, endDate, terms) => {
   subQuery = JSON.parse(JSON.stringify(subQuery)).map((item) => item.no_faktur);
 
   let results = BaseServiceQueryBuilder(ITEM_BARANG_CONFIG_MAIN_TABLE)
-    .select(["kode_barang", "nama_barang", "berat", "qty", "subtotal"])
+    .select(["kode_barang", "nama_barang", "hargaSatuan", "qty", "subtotal"])
     .whereIn("no_faktur", subQuery);
 
   if (terms) {

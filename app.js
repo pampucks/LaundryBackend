@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+require("./utils/db");
+const Feedback = require("./model/feedback");
+
 const app = express();
 app.use(express.json());
 

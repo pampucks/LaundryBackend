@@ -106,6 +106,45 @@ const TransaksiValidators = {
           });
       },
 
+      hargaSatuan: (location = body, field = "items.*.hargaSatuan") => {
+        return BarangValidators.hargaSatuan(location, field)
+          .bail()
+          .custom(async (value, { req, location, path }) => {
+            const index = _.toPath(path)[1];
+            const barang = await BarangServiceGet(
+              "kode_barang",
+              req[location].items[index].kode_barang
+            );
+
+            BaseValidatorHandleUndefined(barang, "Kode Barang");
+
+            if (barang.hargaSatuan !== value) {
+              return Promise.reject(
+                "Harga satuan barang tidak sama dengan harga satuan aslinya."
+              );
+            }
+
+            return Promise.resolve(true);
+          });
+      },
+
+      qty: (location = body, field = "items.*.qty") => {
+        return location(field)
+          .notEmpty()
+          .withMessage("Jumlah qty wajib.")
+          .bail()
+          .isInt()
+          .withMessage("Jumlah qty harus angka.")
+          .bail()
+          .customSanitizer((value) => parseInt(value))
+          .custom((value) => {
+            if (value <= 0) {
+              throw new Error("Jumlah qty tidak boleh 0");
+            }
+            return true;
+          });
+      },
+
       subtotal: (location = body, field = "items.*.subtotal") => {
         return location(field)
           .notEmpty()
